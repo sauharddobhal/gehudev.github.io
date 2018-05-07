@@ -1,0 +1,57 @@
+/*$(document).ready(function() {
+    $('.owl-carousel').owlCarousel({
+    items: 4,
+    loop: true,
+    margin: 10,
+    autoplay: true,
+    autoplayTimeout: 1000,
+    autoplayHoverPause: true
+    });
+    $('.next-generation-carousel').owlCarousel({
+	    items: 1,
+	    loop: true,
+	    margin: 10,
+	    autoplay: true,
+    });
+
+})*/
+$(document).ready(function() {
+   var one = $(".owl-carousel");
+   var tech_carousel = $(".next-generation-carousel");
+   var banner_carousel = $(".geu-banner-carousel");
+	one.owlCarousel({
+		items: 4,
+		loop: true,
+		margin: 5,
+		autoplay: true,
+		autoplayTimeout: 1000,
+		autoplayHoverPause: true
+	});  
+
+	tech_carousel.owlCarousel({
+	  items: 1,
+	  animateIn: 'fadeIn',
+	  animateOut: 'fadeOut',
+	  autoplay: true,
+	  autoplayTimeout: 2000,
+	  dots: false,
+	  loop: true
+	});
+
+	banner_carousel.owlCarousel({
+	  items: 1,
+	  autoplay: true, 
+	  loop: true,
+	  autoplayTimeout: 2000,
+	});
+	$('.next-generation-carousel').addClass('owl-carousel').owlCarousel({
+	        margin: 10,
+	        nav: true,
+	        items: 1,
+	});
+	$('.geu-banner-carousel').addClass('owl-carousel').owlCarousel({
+	        margin: 10,
+	        nav: true,
+	        items: 1,
+	});
+});

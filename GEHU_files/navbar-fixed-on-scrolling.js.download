@@ -1,0 +1,124 @@
+$(document).ready(function() {
+    
+        /**
+         * This object controls the nav bar. Implement the add and remove
+         * action over the elements of the nav bar that we want to change.
+         *
+         * @type {{flagAdd: boolean, elements: string[], add: Function, remove: Function}}
+         */
+        var myNavBar = {
+            flagAdd: true,
+            elements: [],
+    
+            init: function(elements) {
+                this.elements = elements;
+            },
+    
+            add: function() {
+                if (this.flagAdd) {
+                    for (var i = 0; i < this.elements.length; i++) {
+                        document.getElementById(this.elements[i]).className += " fixed-theme";
+                    }
+                    this.flagAdd = false;
+                }
+            },
+    
+            remove: function() {
+                for (var i = 0; i < this.elements.length; i++) {
+                    document.getElementById(this.elements[i]).className =
+                    document.getElementById(this.elements[i]).className.replace(/(?:^|\s)fixed-theme(?!\S)/g, '');
+                }
+                this.flagAdd = true;
+            }
+    
+        };
+    
+        /**
+         * Init the object. Pass the object the array of elements
+         * that we want to change when the scroll goes down
+         */
+        myNavBar.init([
+            "header",
+            "header-container",
+            "brand"
+        ]);
+    
+        /**
+         * Function that manage the direction
+         * of the scroll
+         */
+        function offSetManager() {
+    
+            var yOffset = 0;
+            var currYOffSet = window.pageYOffset;
+    
+            if (yOffset < currYOffSet) {
+                myNavBar.add();
+                $(".brandLogo").addClass("shrink");
+            } else if (currYOffSet == yOffset) {
+                myNavBar.remove();
+                $(".brandLogo").removeClass("shrink");
+            }
+        
+        }
+    
+        /**
+         * bind to the document scroll detection
+         */
+        window.onscroll = function(e) {
+            offSetManager();
+    
+            clearTimeout($.data(this, 'scrollTimer'));
+
+            // window scrolling
+            $('.enquire-now-btn').removeClass('active');
+            var scrollTop = $(document).scrollTop();
+            if(scrollTop === 0) {
+                $('.enquire-now-form-content').show();
+                $('.enquire-now-btn').addClass('active');
+            }
+        }
+        $('.enquire-now-btn').addClass('active');
+        /*$('#category-tabs li:first-child ul a').find('i').addClass('fa fa-plus');
+                Accordion Change Icon on Click
+        $('#category-tabs li').click(function(){
+            $(this).find('i').toggleClass('fa-plus fa-minus')
+        });*/
+
+        var selectIds = $('#panel1,#panel2,#panel3');
+            $(function ($) {
+                selectIds.on('show.bs.collapse hidden.bs.collapse', function () {
+                    $(this).prev().find('.glyphicon').toggleClass('glyphicon-plus glyphicon-minus');
+                })
+            });
+        if($(window).width() >= '320' && $(window).width() <= '1200') {
+            $('.enquire-now-form-content').css('right', '25px')
+        }
+        if($(window).width() >= '320' && $(window).width() <= '1250') { 
+            $('.placementSectionContent.col-lg-6.col-md-6').css('min-height', '295px');
+        }
+        /*Increament count on page load*/
+        $(".box").scroll(function() {
+            if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+                $("span").show();    
+            } else {
+                $("span").hide();
+            }
+        });
+        $('.count').each(function () {
+            $(this).prop('Counter',0).animate({
+             Counter: $(this).text()
+            }, {
+             duration: 4000,
+             easing: 'swing',
+             step: function (now) {
+              $(this).text(Math.ceil(now));
+             }
+            });
+        });
+
+        //captcha js
+        $('#captchaGenerator').realperson();
+        $("#captchaGenerator").attr("placeholder", "Enter captcha");
+
+    });
